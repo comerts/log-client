@@ -25,9 +25,11 @@ int main(int argc, char* argv[])
 
 //	NetCom netCom;
 
+    static unsigned int log_counter = 0;
+
 	while(true)
 	{
-	    SendLogStringFormat("Log: %s", argv[1]);
+	    SendLogStringFormat("Log: %s %d", argv[1], log_counter++);
 
 	    sleep(MAIN_LOOP_SLEEP_TIME);
 	}

@@ -14,7 +14,6 @@
 #define CONF_DEBUG_TIMING						1
 #define CONF_CRITICAL_SECTION_FOR_SERIAL		0
 
-#define MAIN_LOOP_SLEEP_TIME	10
-
+#define MAIN_LOOP_SLEEP_TIME	1
 
 #endif /* SYS_CONF_H_ */
