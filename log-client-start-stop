@@ -1,0 +1,17 @@
+#! /bin/sh
+
+case "$1" in
+    start)
+        echo "Starting log-client"
+        start-stop-daemon -S -n log-client -a /usr/bin/log-client -- -d
+        ;;
+    stop)
+        echo "Stopping log-client"
+        start-stop-daemon -K -n log-client
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+    exit 1
+esac
+
+exit 0
