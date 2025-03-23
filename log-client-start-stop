@@ -3,7 +3,7 @@
 case "$1" in
     start)
         echo "Starting log-client"
-        start-stop-daemon -S -n log-client -a /usr/bin/log-client -- -d
+        start-stop-daemon -S -n log-client -a /usr/bin/log-client -- "Client log ->" -d
         ;;
     stop)
         echo "Stopping log-client"

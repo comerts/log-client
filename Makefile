@@ -1,33 +1,27 @@
+#CROSS_COMPILE=aarch64-linux-gnu-
 
-CC := g++
+CXX ?= $(CROSS_COMPILE)g++
 
-MIPSCC := /opt/codefidence_/bin/mipsel-linux-uclibc-g++ 
+TARGET ?= log-client
 
-OUTPUT := log-client
+INCLUDES ?= -I/usr/include/
 
-INCLUDES := /usr/include/
+LDFLAGS ?=  -lpthread -lrt
 
-LIBS := -lpthread
-DEEP_WARNING =  1
+CFLAGS ?= -Werror -Wall -Wextra -Wno-format-truncation -D_REENTRANT -DDEBUG
 
-FLAGS := -D_REENTRANT -DDEBUG
+STRIP_PC ?= strip $(TARGET)_pc
 
-ifdef DEEP_WARNING
-FLAGS += -Wall -Wextra
-endif
-
-STRIP := strip $(OUTPUT)
-
-STRIP_MIPS := /opt/codefidencvoid PrintBuffer(uint8_t* buf, uint32_t bufSize)e/bin/mipsel-linux-uclibc-strip $(OUTPUT)
-
+STRIP ?= $(CROSS_COMPILE)strip $(TARGET)
 
 SOURCES = func.cpp main.cpp
 
 all:
-	$(MIPSCC) $(LIBS) $(FLAGS) -I $(INCLUDES) -o $(OUTPUT)  $(SOURCES)
+	$(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET)  $(SOURCES)
+#	$(STRIP)
 pc:
-	$(CC) $(LIBS) $(FLAGS) -ggdb -g3 -I $(INCLUDES) -o $(OUTPUT)_pc $(SOURCES)
-	#$(STRIP)_gcc
+	g++ $(CFLAGS) $(LDFLAGS) -ggdb -g3 $(INCLUDES) -o $(TARGET)_pc $(SOURCES)
+#	$(STRIP_PC)
 
 clean:
-	rm $(OUTPUT)	
+	rm -rf *.o $(TARGET) $(TARGET)_pc

@@ -39,7 +39,7 @@ int DirectOutput2LogFile()
 	{
 		_stdoutBackup = dup(1);
 	}
-	int fd = open("/tmp/serialLog_2.txt", O_RDWR | O_APPEND | O_CREAT);
+	int fd = open("/tmp/serialLog_2.txt", O_RDWR | O_APPEND | O_CREAT, 0666);
 	if(fd < 0)
 	{
 		perror("open failed");
@@ -120,7 +120,7 @@ void SendLog(const char* buf)
 	log_pack->type = LOG_PACK_TYPE_ALPHA;
 
 	strcpy( log_pack->log_array, "[log-client]" );
-	strncat( log_pack->log_array, buf, LOG_BUF_SIZE );
+	strncat(log_pack->log_array, buf, LOG_BUF_SIZE - 1);
 	log_pack->log_array_len = strlen( log_pack->log_array );
 
 	logServerAddr.sin_family = AF_INET;
