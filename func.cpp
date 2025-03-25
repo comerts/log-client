@@ -35,18 +35,18 @@
 int DirectOutput2LogFile()
 {
 	static int _stdoutBackup = -1;
-	if(-1 == _stdoutBackup)
+	if (-1 == _stdoutBackup)
 	{
 		_stdoutBackup = dup(1);
 	}
 	int fd = open("/tmp/serialLog_2.txt", O_RDWR | O_APPEND | O_CREAT, 0666);
-	if(fd < 0)
+	if (fd < 0)
 	{
 		perror("open failed");
 		return -1;
 	}
 	int retval = dup2(fd, 1);
-	if(retval < 0)
+	if (retval < 0)
 	{
 		perror("dup2");
 		return -1;
@@ -57,7 +57,7 @@ int DirectOutput2LogFile()
 void PrintBuffer(const uint8_t* buf, uint32_t bufSize)
 {
 #if 0
-	for(uint32_t i=0;i<bufSize; i++)
+	for (uint32_t i=0;i<bufSize; i++)
 	{
 		printf("%02x ", static_cast<uint8_t>(buf[i]) );
 	}
@@ -75,23 +75,23 @@ pthread_t startThread(threadFunc func, void* arg)
 	pthread_attr_t threadAttr;
 	pthread_t thread;
 
-	if( (pthread_attr_init(&threadAttr) != 0) )
+	if ((pthread_attr_init(&threadAttr) != 0))
 	{
 		perror("pthread_attr_init");
 		exit(1);
 	}
-	if( (pthread_attr_setschedpolicy(&threadAttr, SCHED_RR) != 0) )
+	if ((pthread_attr_setschedpolicy(&threadAttr, SCHED_RR) != 0))
 	{
 		perror("pthread_attr_setschedpolicy");
 		exit(1);
 	}
 	sched.sched_priority = 66;
-	if( (pthread_attr_setschedparam(&threadAttr, &sched) != 0) )
+	if ((pthread_attr_setschedparam(&threadAttr, &sched) != 0))
 	{
 		perror("pthread_attr_setschedparam");
 		exit(1);
 	}
-	if( (pthread_create( &thread, &threadAttr, func, reinterpret_cast<void*>(arg) ) != 0) )
+	if ((pthread_create( &thread, &threadAttr, func, reinterpret_cast<void*>(arg) ) != 0))
 	{
 		perror("pthread_create - cfg_listening_socket");
 		exit(1);
@@ -105,7 +105,8 @@ void BlockAllSignals()
 	sigfillset( &signal_set );
 	sigdelset(&signal_set, SIGKILL);
 	sigdelset(&signal_set, SIGSTOP);
-	if(pthread_sigmask( SIG_BLOCK, &signal_set, NULL )<0){
+	if (pthread_sigmask(SIG_BLOCK, &signal_set, NULL) < 0)
+	{
 		printf("Block all signals failed: %s-%d\n", strerror(errno), errno);
 	}
 }
@@ -119,15 +120,15 @@ void SendLog(const char* buf)
 	log_pack->degree = LOG_PACK_DEGREE_WRITE_SEND;
 	log_pack->type = LOG_PACK_TYPE_ALPHA;
 
-	strcpy( log_pack->log_array, "[log-client]" );
+	strcpy(log_pack->log_array, "[log-client]");
 	strncat(log_pack->log_array, buf, LOG_BUF_SIZE - 1);
-	log_pack->log_array_len = strlen( log_pack->log_array );
+	log_pack->log_array_len = strlen( log_pack->log_array);
 
 	logServerAddr.sin_family = AF_INET;
 	logServerAddr.sin_port = htons(INTERNAL_LOG_PORT);
 	logServerAddr.sin_addr.s_addr = inet_addr(LOCAL_ADDR);
 
-	if((logFd  = socket(AF_INET, SOCK_DGRAM, 0) ) < 0)
+	if ((logFd  = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 	{
 		perror("socket open error");
 		exit(1);
