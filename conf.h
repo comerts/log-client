@@ -14,9 +14,7 @@
 #define LOCAL_LOG_SIZE					512
 #define LOG_BUF_SIZE					256
 #define LOG_COUNT_CHECK					100
-#define MTR_LOG_COUNT_CHECK				100
 #define LOG_FILE_MAX_SIZE				0x3FFFF
-#define MTR_LOG_FILE_MAX_SIZE			0x1FFFF
 
 #define PRINT_LINE()					printf("\n%s:%s->%d\n", __FILE__, __FUNCTION__, __LINE__)
 #define PRINT_LINE_WITHDELAY()			{printf("\n%s:%s->%d\n", __FILE__, __FUNCTION__, __LINE__);usleep(DELAY_50_MS);}
@@ -30,7 +28,5 @@
 
 #define LOG_FILE_OLD                    "/var/log/log_previous"
 #define LOG_FILE_CURRENT                "/var/log/log_current"
-#define MTR_LOG_FILE_OLD                "/var/log/mtr_log_previous"
-#define MTR_LOG_FILE_CURRENT            "/var/log/mtr_log_current"
 
 #endif /*CONF_H_*/

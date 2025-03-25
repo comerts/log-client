@@ -32,28 +32,6 @@
 
 #include "func.h"
 
-int DirectOutput2LogFile()
-{
-	static int _stdoutBackup = -1;
-	if (-1 == _stdoutBackup)
-	{
-		_stdoutBackup = dup(1);
-	}
-	int fd = open("/tmp/serialLog_2.txt", O_RDWR | O_APPEND | O_CREAT, 0666);
-	if (fd < 0)
-	{
-		perror("open failed");
-		return -1;
-	}
-	int retval = dup2(fd, 1);
-	if (retval < 0)
-	{
-		perror("dup2");
-		return -1;
-	}
-	return 0;
-}
-
 void PrintBuffer(const uint8_t* buf, uint32_t bufSize)
 {
 #if 0

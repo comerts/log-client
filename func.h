@@ -16,7 +16,6 @@ typedef void*(*threadFunc)(void*);
 extern void PrintBuffer(const uint8_t* buf, uint32_t bufSize);
 extern pthread_t startThread(threadFunc func, void* arg);
 extern void BlockAllSignals();
-extern int DirectOutput2LogFile();
 extern void getFiles(char* bootFile);
 extern void SendLog(const char* buf);
 extern void SendLogStringFormat(const char* format, ...);
