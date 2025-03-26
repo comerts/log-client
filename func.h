@@ -1,8 +1,8 @@
 /*
  * func.h
  *
- *  Created on: Nov 3, 2011
- *      Author: root
+ *  Created on: Mar 23, 2025
+ *      Author: comerts
  */
 
 #ifndef FUNC_H_

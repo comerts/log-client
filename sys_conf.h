@@ -1,8 +1,8 @@
 /*
  * sys_conf.h
  *
- *  Created on: Aug 1, 2013
- *      Author: root
+ *  Created on: Mar 23, 2025
+ *      Author: comerts
  */
 
 #ifndef SYS_CONF_H_
